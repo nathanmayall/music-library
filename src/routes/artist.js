@@ -4,14 +4,15 @@ const artist = express.Router();
 
 const artistController = require('../controllers/artistController');
 
-artist.route('/artist').get(artistController.list);
+artist
+  .route('/artist')
+  .get(artistController.list)
+  .post(artistController.insert);
 
-artist.route('/artist').post(artistController.insert);
-
-artist.route('/artist/:artistId').get(artistController.getOne);
-
-artist.route('/artist/:artistId').patch(artistController.editOne);
-
-artist.route('/artist/:artistId').delete(artistController.deleteOne);
+artist
+  .route('/artist/:artistId')
+  .get(artistController.getOne)
+  .patch(artistController.editOne)
+  .delete(artistController.deleteOne);
 
 module.exports = artist;

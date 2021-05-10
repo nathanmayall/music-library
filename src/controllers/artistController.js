@@ -1,9 +1,7 @@
 /* eslint-disable no-unused-expressions */
 const getDb = require('../services/db');
 
-// artist controller example with just the list method
-
-const list = async (req, res, next) => {
+const list = async (_, res, next) => {
   const db = await getDb();
 
   try {
