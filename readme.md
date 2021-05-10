@@ -32,6 +32,8 @@ This will start an express server locally which you can use `GET` `POST` `PATCH`
 
 ## Data schema
 
+This is how the request body should be set out when using the API.
+
 Artist JSON is set out below:
 
 ```javascript
