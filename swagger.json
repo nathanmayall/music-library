@@ -1,0 +1,404 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "",
+    "description": "",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "basePath": "/",
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
+  "schemes": ["http", "https"],
+  "tags": [
+    {
+      "name": "Albums",
+      "description": "Endpoints for interacting with the albums in the library"
+    },
+    {
+      "name": "Artists",
+      "description": "Endpoints for interacting with the artists in the library"
+    }
+  ],
+  "paths": {
+    "/artist": {
+      "get": {
+        "tags": ["Artists"],
+        "summary": "Get all artists in the database",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Here's a list of every artist, returns as array",
+            "schema": {
+              "type": "array",
+              "$ref": "#definitions/ArtistResponseObject"
+            }
+          }
+        },
+        "produces": ["application/json"]
+      },
+      "post": {
+        "tags": ["Artists"],
+        "summary": "Add a new artist",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "New artist body to be added",
+            "required": false,
+            "schema": {
+              "$ref": "#definitions/ArtistObject"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Request edited OK.",
+            "schema": {
+              "type": "object",
+              "$ref": "#definitions/ArtistResponseObject"
+            }
+          },
+          "404": {
+            "description": "Artist ID not found"
+          }
+        },
+        "produces": ["application/json"]
+      }
+    },
+    "/artist/{artistId}": {
+      "get": {
+        "tags": ["Artists"],
+        "summary": "Get a single artist",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "artistId",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Here's a single artist",
+            "schema": {
+              "type": "object",
+              "$ref": "#definitions/ArtistResponseObject"
+            }
+          },
+          "404": {
+            "description": "Artist ID not found"
+          }
+        },
+        "produces": ["application/json"]
+      },
+      "patch": {
+        "tags": ["Artists"],
+        "summary": "edit a single artist",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "artistId",
+            "required": "true"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "New artist body to be patched",
+            "required": false,
+            "schema": {
+              "$ref": "#definitions/ArtistObject"
+            }
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Request edited OK."
+          },
+          "404": {
+            "description": "Artist ID not found"
+          }
+        },
+        "produces": ["application/json"]
+      },
+      "delete": {
+        "tags": ["Artists"],
+        "summary": "delete a single artist",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "artistId",
+            "required": "true"
+          }
+        ],
+
+        "responses": {
+          "200": {
+            "description": "Requested artist deleted OK."
+          },
+          "404": {
+            "description": "Artist ID not found"
+          }
+        },
+        "produces": ["application/json"]
+      }
+    },
+    "/albums": {
+      "get": {
+        "tags": ["Albums"],
+        "summary": "Get all albums in the database, returns array.",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Here's a list of every album",
+            "schema": {
+              "type": "array",
+              "$ref": "#definitions/AlbumResponseObject"
+            }
+          }
+        },
+        "produces": ["application/json"]
+      }
+    },
+    "/artist/{artistId}/album": {
+      "get": {
+        "tags": ["Albums"],
+        "summary": "Get all albums by artist",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "artistId",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Here's all artist albums",
+            "schema": {
+              "type": "object",
+              "$ref": "#definitions/AlbumResponseObject"
+            }
+          },
+          "404": {
+            "description": "Artist ID not found"
+          }
+        },
+        "produces": ["application/json"]
+      },
+      "post": {
+        "tags": ["Albums"],
+        "summary": "Add new album to artist",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "artistId",
+            "required": "true"
+          },
+          {
+            "in": "body",
+            "type": "object",
+            "name": "body",
+            "required": "true",
+            "schema": {
+              "type": "object",
+              "$ref": "#definitions/AlbumObject"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Here's the new album object",
+            "schema": {
+              "type": "object",
+              "$ref": "#definitions/AlbumObject"
+            }
+          },
+          "404": {
+            "description": "Artist ID not found"
+          }
+        },
+        "produces": ["application/json"]
+      }
+    },
+    "/artist/{artistId}/album/{albumId}": {
+      "get": {
+        "tags": ["Albums"],
+        "summary": "Get a single album by artist",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "artistId",
+            "required": "true"
+          },
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "albumId",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Here's a single album",
+            "schema": {
+              "type": "object",
+              "$ref": "#definitions/AlbumResponseObject"
+            }
+          },
+          "404": {
+            "description": "Album ID not found"
+          }
+        },
+        "produces": ["application/json"]
+      },
+      "patch": {
+        "tags": ["Albums"],
+        "summary": "Edit a single album by artist",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "artistId",
+            "required": "true"
+          },
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "albumId",
+            "required": "true"
+          },
+          {
+            "in": "body",
+            "type": "object",
+            "name": "body",
+            "required": "true",
+            "schema": {
+              "type": "object",
+              "$ref": "#definitions/AlbumObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Album edited OK"
+          },
+          "404": {
+            "description": "Album ID not found"
+          }
+        },
+        "produces": ["application/json"]
+      },
+      "delete": {
+        "tags": ["Albums"],
+        "summary": "Delete a single album by artist",
+        "parameters": [
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "artistId",
+            "required": "true"
+          },
+          {
+            "in": "path",
+            "type": "integer",
+            "name": "albumId",
+            "required": "true"
+          },
+          {
+            "in": "body",
+            "type": "object",
+            "name": "body",
+            "required": "true",
+            "schema": {
+              "type": "object",
+              "$ref": "#definitions/AlbumObject"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Album deleted OK"
+          },
+          "404": {
+            "description": "Album ID not found"
+          }
+        },
+        "produces": ["application/json"]
+      }
+    }
+  },
+  "definitions": {
+    "AlbumResponseObject": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "1"
+        },
+        "name": {
+          "type": "string",
+          "example": "Yellow Submarine"
+        },
+        "year": {
+          "type": "string",
+          "example": "1969"
+        },
+        "artistId": {
+          "type": "integer",
+          "example": "1"
+        }
+      }
+    },
+    "AlbumObject": {
+      "required": ["name", "year"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Yellow Submarine"
+        },
+        "year": {
+          "type": "integer",
+          "example": "1969"
+        }
+      }
+    },
+    "ArtistResponseObject": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "example": "1"
+        },
+        "name": {
+          "type": "string",
+          "example": "The Beatles"
+        },
+        "genre": {
+          "type": "string",
+          "example": "Rock"
+        }
+      }
+    },
+    "ArtistObject": {
+      "required": ["name", "genre"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "The Beatles"
+        },
+        "genre": {
+          "type": "string",
+          "example": "Rock"
+        }
+      }
+    }
+  }
+}
