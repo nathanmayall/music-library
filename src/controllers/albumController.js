@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-expressions */
 const getDb = require('../services/db');
 
-const list = async (req, res, next) => {
+const listAllFromArtist = async (req, res, next) => {
   const { artistId } = req.params;
   const db = await getDb();
 
@@ -102,4 +102,11 @@ const getAll = async (req, res, next) => {
   db.close();
 };
 
-module.exports = { list, insert, getOne, changeOne, deleteOne, getAll };
+module.exports = {
+  listAllFromArtist,
+  insert,
+  getOne,
+  changeOne,
+  deleteOne,
+  getAll,
+};

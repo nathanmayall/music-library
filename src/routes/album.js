@@ -8,7 +8,7 @@ album.route('/albums').get(albumController.getAll);
 
 album
   .route('/artist/:artistId/album')
-  .get(albumController.list)
+  .get(albumController.listAllFromArtist)
   .post(albumController.insert);
 
 album
