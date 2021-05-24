@@ -1,4 +1,5 @@
 const express = require('express');
+const { upload } = require('../controllers/uploadFileController');
 
 const album = express.Router();
 
@@ -9,7 +10,7 @@ album.route('/albums').get(albumController.getAll);
 album
   .route('/artist/:artistId/album')
   .get(albumController.listAllFromArtist)
-  .post(albumController.insert);
+  .post(upload.single('file'), albumController.insert);
 
 album
   .route('/artist/:artistId/album/:albumId')

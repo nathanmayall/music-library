@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-expressions */
 const getDb = require('../services/db');
+const { uploadFiletoS3 } = require('./uploadFileController');
 
 const listAllFromArtist = async (req, res, next) => {
   const { artistId } = req.params;
@@ -22,10 +23,13 @@ const insert = async (req, res, next) => {
   const { artistId } = req.params;
 
   try {
+    req.body.imageUrl = await uploadFiletoS3(req.file);
+
     await db.query(
       'INSERT INTO Album (name, year, artistId) VALUES (?, ?, ?)',
       [name, year, artistId]
     );
+
     res.status(201).json(req.body);
   } catch (err) {
     console.log(err);
