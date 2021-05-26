@@ -23,12 +23,14 @@ const insert = async (req, res, next) => {
   const { artistId } = req.params;
 
   try {
-    req.body.imageUrl = await uploadFiletoS3(req.file);
+    const imageUrl = await uploadFiletoS3(req.file);
 
     await db.query(
-      'INSERT INTO Album (name, year, artistId) VALUES (?, ?, ?)',
-      [name, year, artistId]
+      'INSERT INTO Album (name, year, artistId, imageUrl) VALUES (?, ?, ?, ?)',
+      [name, year, artistId, imageUrl]
     );
+
+    req.body.imageUrl = imageUrl;
 
     res.status(201).json(req.body);
   } catch (err) {

@@ -5,12 +5,12 @@ const artist = express.Router();
 const artistController = require('../controllers/artistController');
 
 artist
-  .route('/artist')
+  .route('/artists')
   .get(artistController.list)
   .post(artistController.insert);
 
 artist
-  .route('/artist/:artistId')
+  .route('/artists/:artistId')
   .get(artistController.getOne)
   .patch(artistController.editOne)
   .delete(artistController.deleteOne);
